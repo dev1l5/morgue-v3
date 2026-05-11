@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — MORGUE V3</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="products.css" />
+</head>
+<body>
+  <nav></nav>
+
+  <div class="page">
+
+    <!-- PAGE HEADER -->
+    <section class="products-hero">
+      <div class="products-hero-bg"></div>
+      <div class="products-hero-content">
+        <p class="section-tag">// INVENTORY</p>
+        <h1 class="section-title">PRODUCTS</h1>
+        <p class="section-subtitle">Four categories. Sixty-four items. All priced. Some discounted. Select and add to cart.</p>
+      </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="filter-inner">
+        <div class="filter-tabs" id="filter-tabs">
+          <button class="filter-tab active" data-cat="all">ALL <span>64</span></button>
+          <button class="filter-tab" data-cat="cat1">⬡ TACTICAL <span>16</span></button>
+          <button class="filter-tab" data-cat="cat2">◈ DIGITAL <span>16</span></button>
+          <button class="filter-tab" data-cat="cat3">◉ APPAREL <span>16</span></button>
+          <button class="filter-tab" data-cat="cat4">◐ ELECTRONICS <span>16</span></button>
+          <button class="filter-tab discount-tab" data-cat="discounts">🔖 DEALS</button>
+        </div>
+        <div class="filter-sort">
+          <label for="sort-select">SORT</label>
+          <select id="sort-select">
+            <option value="default">DEFAULT</option>
+            <option value="price-asc">PRICE: LOW → HIGH</option>
+            <option value="price-desc">PRICE: HIGH → LOW</option>
+            <option value="discount">DISCOUNTS FIRST</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORY SECTIONS -->
+    <div class="products-container" id="products-container">
+      <!-- Rendered by products.js -->
+    </div>
+
+  </div><!-- /page -->
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div class="modal-backdrop" id="product-modal">
+    <div class="modal" id="product-modal-inner">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-product-name">PRODUCT NAME</h2>
+        <button class="modal-close" id="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="product-detail-grid">
+          <div class="detail-img">
+            <img id="modal-img" src="" alt="" />
+          </div>
+          <div>
+            <div class="card-price" id="modal-price"></div>
+            <div class="detail-meta" id="modal-meta"></div>
+            <p id="modal-desc" style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;margin:1rem 0;"></p>
+            <div class="qty-control">
+              <button class="qty-btn" id="qty-minus">−</button>
+              <span class="qty-val" id="qty-val">1</span>
+              <button class="qty-btn" id="qty-plus">+</button>
+              <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text-dim);margin-left:0.5rem;">QTY</span>
+            </div>
+            <button class="btn btn-primary" id="modal-add-btn" style="width:100%;justify-content:center;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer></footer>
+
+  <script src="app.js"></script>
+  <script src="products.js"></script>
+</body>
+</html>
