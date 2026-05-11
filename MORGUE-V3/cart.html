@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart — MORGUE V3</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="cart.css" />
+</head>
+<body>
+  <nav></nav>
+
+  <div class="page">
+
+    <section class="cart-hero">
+      <div class="cart-hero-content">
+        <p class="section-tag">// ORDER REVIEW</p>
+        <h1 class="section-title">YOUR CART</h1>
+      </div>
+    </section>
+
+    <div class="cart-layout" id="cart-layout">
+
+      <!-- CART ITEMS -->
+      <div class="cart-items-col">
+        <div class="cart-items-header">
+          <span class="section-tag" style="margin:0;">// SELECTED ITEMS</span>
+          <button class="btn-clear-cart" id="clear-cart-btn">CLEAR ALL</button>
+        </div>
+        <div id="cart-items-list">
+          <!-- Rendered by cart.js -->
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY & CHECKOUT -->
+      <div class="cart-summary-col">
+
+        <!-- Summary Box -->
+        <div class="summary-box">
+          <div class="summary-header">
+            <span class="section-tag" style="margin:0;">// ORDER TOTAL</span>
+          </div>
+          <div class="summary-lines" id="summary-lines">
+            <!-- Rendered by cart.js -->
+          </div>
+          <div class="summary-total">
+            <span>TOTAL</span>
+            <span id="summary-total-val">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Checkout Form -->
+        <div class="checkout-box" id="checkout-box">
+          <p class="section-tag" style="margin-bottom:1rem;">// CHECKOUT</p>
+
+          <div class="notice" style="margin-bottom:1.5rem;">
+            <strong>// EMAIL NOTICE //</strong> — Your email (temporary or permanent)
+            is used <em>only</em> to communicate order status. We recommend an encrypted
+            address. No marketing. No sharing.
+          </div>
+
+          <div class="input-group">
+            <label>CONTACT EMAIL <span style="color:var(--accent)">*</span></label>
+            <input type="email" id="checkout-email" placeholder="your@protonmail.com" />
+          </div>
+
+          <div class="input-group">
+            <label>ORDER NOTES (OPTIONAL)</label>
+            <textarea id="checkout-notes" placeholder="Special instructions, delivery notes, etc."></textarea>
+          </div>
+
+          <!-- Payment Method -->
+          <p class="section-tag" style="margin-bottom:0.75rem;">// PAYMENT METHOD</p>
+          <div class="coin-selector" id="checkout-coin-selector">
+            <button class="coin-btn active" data-coin="xmr">
+              <span>◎</span> MONERO (XMR)
+            </button>
+            <button class="coin-btn" data-coin="btc">
+              <span>₿</span> BITCOIN (BTC)
+            </button>
+          </div>
+
+          <div id="checkout-addr-section" style="margin:1rem 0;">
+            <label style="font-family:var(--mono);font-size:0.6rem;letter-spacing:3px;color:var(--text-dim);display:block;margin-bottom:6px;">
+              SEND EXACT TOTAL TO:
+            </label>
+            <div class="crypto-addr" id="checkout-addr-display"
+                 onclick="copyToClipboard(this.dataset.addr)"
+                 data-addr="x_XMR_ADDRESS_PLACEHOLDER_REPLACE_LATER">
+              x_XMR_ADDRESS_PLACEHOLDER_REPLACE_LATER
+            </div>
+            <p style="font-family:var(--mono);font-size:0.62rem;letter-spacing:1px;color:var(--text-dim);margin-top:6px;">
+              ↑ Click address to copy · Send <strong id="addr-total-inline" style="color:var(--accent3)">$0.00</strong> worth of selected coin
+            </p>
+          </div>
+
+          <button class="btn btn-primary" id="checkout-submit-btn" style="width:100%;justify-content:center;margin-top:0.5rem;">
+            CONFIRM PAYMENT SENT
+          </button>
+          <p style="font-family:var(--mono);font-size:0.6rem;letter-spacing:1px;color:var(--text-dim);margin-top:0.75rem;text-align:center;">
+            Confirmation will be sent to your provided email once the transaction is verified.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- EMPTY CART STATE -->
+    <div id="empty-cart-state" style="display:none;text-align:center;padding:6rem 2rem;">
+      <div style="font-family:var(--display);font-size:4rem;letter-spacing:6px;color:var(--border);margin-bottom:1rem;">EMPTY</div>
+      <p style="font-family:var(--mono);font-size:0.75rem;letter-spacing:3px;color:var(--text-dim);margin-bottom:2rem;">// YOUR CART HAS NO ITEMS</p>
+      <a href="products.html" class="btn btn-primary">BROWSE PRODUCTS</a>
+    </div>
+
+  </div><!-- /page -->
+
+  <!-- ORDER CONFIRMATION MODAL -->
+  <div class="modal-backdrop" id="order-confirm-modal">
+    <div class="modal" style="max-width:500px;">
+      <div class="modal-body" style="text-align:center;padding:3rem 2rem;">
+        <div class="confirm-order-icon">⬡</div>
+        <h2 style="font-family:var(--display);font-size:2rem;letter-spacing:4px;color:var(--accent3);margin:1rem 0 0.5rem;">ORDER RECEIVED</h2>
+        <p style="font-family:var(--mono);font-size:0.7rem;letter-spacing:2px;color:var(--text-dim);margin-bottom:0.5rem;" id="order-confirm-email">
+          Confirmation will be sent to: —
+        </p>
+        <p style="font-family:var(--mono);font-size:0.7rem;letter-spacing:1px;color:var(--text-dim);margin-bottom:1.5rem;" id="order-confirm-id">
+          Order ref: —
+        </p>
+        <div class="notice green" style="text-align:left;margin-bottom:1.5rem;">
+          Your payment is being logged. Once your transaction receives sufficient confirmations,
+          your order will be processed and you will receive an update at your provided email address.
+          Typical fulfilment: 24–72 hours.
+        </div>
+        <button class="btn btn-outline" id="order-confirm-close" style="margin:0 auto;">CLOSE</button>
+      </div>
+    </div>
+  </div>
+
+  <footer></footer>
+
+  <script src="app.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>
